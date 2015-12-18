@@ -60,6 +60,11 @@ class Funcion {
 	function procesarAjax() {
 		include_once ($this->ruta . "funcion/procesarAjax.php");
 	}
+	function instalarMenuSARA() {
+		include_once ($this->ruta . "funcion/InstalarExtension.class.php");
+		$resultado = $miInstalador->instalarPorUrl ('https://raw.githubusercontent.com/JorgeUlises/menuSARA/master/menuSARA.zip');
+		var_dump($resultado);
+	}
 	function action() {
 		$resultado = true;
 		
@@ -76,12 +81,15 @@ class Funcion {
 			
 			switch ($_REQUEST ['opcionPlugin']) {
 				
-				case '1' :
+				case '1' ://Acción de instalación Reportico
 					$resultado = $this->agregarReportico ();											
 					$resultado = $this->copiarArchivos ();	
 					$resultado = $this->configurarArchivos ();
 					$resultado = $this->registrarBloque ();								
-					break;		
+					break;
+				case '2' ://Acción de instalación Menú SARA
+					$this->instalarMenuSARA();
+					break;
 				
 			}
 		}
