@@ -195,7 +195,7 @@ class InspectorHTML {
 			}
 			return $parametros;
 		}
-
+		
 		foreach ($validadorCampos as $nombreCampo => $validador) {
 			if (isset($variables[$nombreCampo])) {
 				$parametros = separarParametros($validador);
@@ -204,7 +204,7 @@ class InspectorHTML {
 					return false;
 				}
 				if (isset($validez['errorType'])) {
-					return "El campo \"".$nombreCampo."\" con valor \"".$variables[$nombreCampo]."\" arroja el error: \"".$validez['errorMessage']."\"";
+					return 'El campo "'.$nombreCampo.'" con valor "'.$variables[$nombreCampo].'" arroja el error: "'.$validez['errorMessage'].'"';
 				}
 				$variables[$nombreCampo] = $validez;
 			}
@@ -212,12 +212,20 @@ class InspectorHTML {
 		
 		return $variables;
 	}
-
+	
+	/*
+	 * Permite codificar los campos de $_REQUEST para enviar como parámetros a FormularioHtml.class.php.
+	 * Permite saltar la restricción de validación SQL, PHP y HTML en los campos para enviar datos sin alteración.
+	 */
+	function codificarCampos($valor){
+    	return base64_encode(serialize($valor));
+    }
+	
 	/*
 	 * Permite decodificar los campos de $_REQUEST que hayan sido enviados codificados
 	 * con la funcion "codificarCampos" del las instancias FormularioHtml.class.php.
 	 */
-	function decodificarCampos($valor) {
+	function decodificarCampos($valor){
 		return unserialize(base64_decode($valor));
 	}
 
