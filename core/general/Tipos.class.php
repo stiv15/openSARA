@@ -36,7 +36,9 @@ class Tipos {
 				'integer' => 'Entero',
 				'onlyNumberSp' => 'NumerosYEspacios',
 				'onlyLetterSp' => 'LetrasYEspacios',
-				'onlyLetterNumber' => 'LetrasYNumeros'
+				'onlyLetterNumber' => 'LetrasYNumeros',
+				'onlyLetterNumberSp' => 'LetrasNumerosYEspacios',
+				'onlyLetterNumberSpPunt' => 'LetrasNumerosEspacioYPuntuacion'
 		);
 	}
 	/**
@@ -45,12 +47,12 @@ class Tipos {
 	 * ejecución alguno de los alias del tipo de dato.
 	 */
 	private function validarBoleano($valor) {
-		$valor = ( bool ) $valor;
-		return is_bool ( $valor );
+		$valoresPosibles = array(TRUE,'t','true','y','yes','1',FALSE,'f','false','n','no','0');
+		return in_array($valor, $valoresPosibles);
 	}
 	private function evaluarBoleano($valor) {
-		$valor = ( bool ) $valor;
-		return $valor;
+		$valoresPosibles = array(TRUE,'t','true','y','yes','1',FALSE,'f','false','n','no','0');
+		return in_array($valor, $valoresPosibles) ? $valor : false;
 	}
 	private function validarEntero($valor) {
 		$entero = ( int ) $valor;
@@ -129,7 +131,7 @@ class Tipos {
 	}
 	
 	private function validarLetrasYEspacios($valor){
-		if (preg_match('/^([[:alpha:]]|[[:space:]]|[áéíóú])*$/',$valor)) {
+		if (preg_match('/^([[:alpha:]]|[[:space:]]|[áéíóúÁÉÍÓÚ])*$/',$valor)) {
 			return true;
 		} else {
 			return false;
@@ -137,7 +139,7 @@ class Tipos {
 	}
 	
 	private function evaluarLetrasYEspacios($valor){
-		if (preg_match('/^([[:alpha:]]|[[:space:]])*$/',$valor)) {
+		if (preg_match('/^([[:alpha:]]|[[:space:]]|[áéíóúÁÉÍÓÚ])*$/',$valor)) {
 			return $valor;
 		} else {
 			return false;
@@ -145,20 +147,53 @@ class Tipos {
 	}
 	
 	private function validarLetrasYNumeros($valor){
-		if (preg_match('/^([[:alnum:]])*$/',$valor)) {
+		if (preg_match('/^([[:alnum:]]|[áéíóúÁÉÍÓÚ])*$/',$valor)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	private function evaluarLetrasYNumeros($valor){
-		if (preg_match('/^([[:alnum:]])*$/',$valor)) {
+	private function evaluarLetrasNumeros($valor){
+		if (preg_match('/^([[:alnum:]]|[áéíóúÁÉÍÓÚ])*$/',$valor)) {
 			return $valor;
 		} else {
 			return false;
 		}
 	}
+	
+	private function validarLetrasNumerosYEspacios($valor){
+		if (preg_match('/^([[:alnum:]]|[[:space:]]|[áéíóúÁÉÍÓÚ])*$/',$valor)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private function evaluarLetrasNumerosYEspacios($valor){
+		if (preg_match('/^([[:alnum:]]|[[:space:]]|[áéíóúÁÉÍÓÚ])*$/',$valor)) {
+			return $valor;
+		} else {
+			return false;
+		}
+	}
+	
+	private function validarLetrasNumerosEspacioYPuntuacion($valor){
+		if (preg_match('/^([[:alnum:]]|[[:space:]]|[áéíóúÁÉÍÓÚ]|[.,])*$/',$valor)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private function evaluarLetrasNumerosEspacioYPuntuacion($valor){
+		if (preg_match('/^([[:alnum:]]|[[:space:]]|[áéíóúÁÉÍÓÚ]|[.,])*$/',$valor)) {
+			return $valor;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	// http://www.sergiomejias.com/2007/09/validar-una-fecha-con-expresiones-regulares-en-php/
 	public function validarStringFecha($fecha) {
@@ -211,7 +246,11 @@ class Tipos {
 					$valor 
 			) );
 		}
-		return false;
+		/**
+		 * Si el tipo de dato que se desea evaluar no existe, se retorna verdadero en vez de falso
+		 * para mejorar compatibilidad con campos custom
+		 */
+		return true;
 	}
 	/*
 	 * Evalua el tipo de dato especificando el valor del dato y el alias del tipo de dato de PHP
@@ -229,7 +268,11 @@ class Tipos {
 					$valor 
 			) );
 		}
-		return false;
+		/**
+		 * Si el tipo de dato que se desea evaluar no existe, se retorna verdadero en vez de falso
+		 * para mejorar compatibilidad con campos custom
+		 */
+		return true;
 	}
 }
 
