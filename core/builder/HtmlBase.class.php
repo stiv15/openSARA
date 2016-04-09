@@ -57,6 +57,8 @@ class HtmlBase {
     const TIPO = 'tipo';
     
     const MARCO = 'marco';
+	
+	const TEXTOFONDO = 'textoFondo';
     
     const ESTILO = 'estilo';
     
