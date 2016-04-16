@@ -70,7 +70,7 @@ class FabricaDbConexion {
 	 * @param string $nombre
 	 * @return boolean dbms
 	 */
-	public function setRecursoDB($nombre = "", $fuente = "tabla") {
+	public function setRecursoDB($nombre = "", $fuente = "tabla", $registro = "") {
 
 		if ($nombre == "") {
 			$nombre = self::CONFIGURACION;
@@ -82,7 +82,9 @@ class FabricaDbConexion {
 			case "instalacion" :
 				return $this -> recursoConfiguracion($nombre);
 				break;
-
+			case "registro" :
+				return $this -> recursoConfiguracion($nombre, $registro);
+				break;
 			default :
 				return $this -> recursoTabla($nombre);
 				break;
