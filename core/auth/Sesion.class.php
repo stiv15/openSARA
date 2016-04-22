@@ -137,10 +137,9 @@ class Sesion extends SesionBase {
                 $this->sesionUsuarioId = trim($this->getValorSesion('idUsuario'));
                 $nivelPagina = $this->getSesionNivel();
 
-                $cadenaSql = $this->miSql->getCadenaSql("verificarNivelUsuario", $this->sesionUsuarioId);
-                $resultadoNivel = $this->miConexion->ejecutarAcceso($cadenaSql, self::BUSCAR);
+                $resultadoNivel = $this->getSesionNivel();
 
-                if ($nivelPagina == $resultadoNivel [0] ['tipo'] && ($this->sesionExpiracion > time())) {
+                if ($nivelPagina == $resultadoNivel && ($this->sesionExpiracion > time())) {
                     $resultado = true;
                 } else {
                     $resultado = false;
