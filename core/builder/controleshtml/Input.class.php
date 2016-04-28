@@ -137,6 +137,10 @@ class Input extends HtmlBase {
         if (! isset ( $this->atributos [self::MAXIMOTAMANNO] )) {
             $this->atributos [self::MAXIMOTAMANNO] = 100;
         }
+		
+		if (isset ( $this->atributos [self::TEXTOFONDO] )) {
+            $cadena .= "placeholder='" . $this->atributos [self::TEXTOFONDO] . "' ";
+        }
         
         $cadena .= "maxlength='" . $this->atributos [self::MAXIMOTAMANNO] . "' ";
         
