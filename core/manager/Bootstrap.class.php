@@ -160,7 +160,17 @@ class Bootstrap {
 		
 		require_once ($this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/core/auth/Autenticador.class.php");
 		$this->autenticador = Autenticador::singleton ();
-		$this->autenticador->setPagina ( $pagina );
+		
+		/**
+		 * Verificar para Validar si es un Web services
+		 * */
+		
+		if ($pagina != 'webservices') {
+			$this->autenticador->setPagina ( $pagina );
+		} else {
+			
+			$this->autenticador->setWebService($_REQUEST['nombreServicio']);
+		}
 		
 		if ($this->autenticador->iniciarAutenticacion ()) {
 			
@@ -190,6 +200,8 @@ class Bootstrap {
 				return false;
 			}
 		} else {
+			echo "noauto";
+			
 			if ($this->autenticador->getError () == 'sesionNoExiste') {
 				unset ( $_REQUEST );
 				$this->redireccionar ( 'indice', 'pagina=index&mostrarMensaje=sesionExpirada' );
@@ -238,10 +250,8 @@ class Bootstrap {
 				$respuesta = 'development';
 			} elseif (isset ( $_REQUEST ['webservices'] )) {
 				$respuesta = 'webservices';
-				$variable =$this->miConfigurador->fabricaConexiones->crypto->decodificar_url ( $_REQUEST ['webservices'] );
-				unset($_REQUEST['webservices']);
-				var_dump($_REQUEST);
-				
+				$variable = $this->miConfigurador->fabricaConexiones->crypto->decodificar_url ( $_REQUEST ['webservices'] );
+				unset ( $_REQUEST ['webservices'] );
 			} else {
 				$respuesta = 'index';
 			}
@@ -290,7 +300,7 @@ class Bootstrap {
 				break;
 		}
 		
-		echo "<script>location.replace('" . $redireccion . "')</script>";  
+		echo "<script>location.replace('" . $redireccion . "')</script>";
 	}
 	private function getVariable() {
 		$variable = "";
