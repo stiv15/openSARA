@@ -51,7 +51,6 @@ class Autenticador {
 		return self::$instancia;
 	}
 	function iniciarAutenticacion() {
-		
 		if (isset ( $this->pagina ["nombre"] )) {
 			$resultado = $this->verificarExistenciaPagina ();
 			
@@ -94,6 +93,10 @@ class Autenticador {
 				$this->tipoError = "webServiceNoExiste";
 				$respuesta = false;
 			}
+		} else {
+			
+			$this->tipoError = "webServiceNoExiste";
+			$respuesta = false;
 		}
 		
 		return $respuesta;
