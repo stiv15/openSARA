@@ -163,14 +163,12 @@ class Bootstrap {
 		
 		/**
 		 * Verificar para Validar si es un Web services
-		 * */
-		
+		 */
 		
 		if ($pagina != 'webservices') {
 			$this->autenticador->setPagina ( $pagina );
-		} else {
-			
-			$this->autenticador->setWebService($_REQUEST['nombreServicio']);
+		} else if (isset ( $_REQUEST ['nombreServicio'] )) {
+			$this->autenticador->setWebService ( $_REQUEST ['nombreServicio'] );
 		}
 		
 		if ($this->autenticador->iniciarAutenticacion ()) {
@@ -201,8 +199,6 @@ class Bootstrap {
 				return false;
 			}
 		} else {
-			echo "noauto";
-			
 			if ($this->autenticador->getError () == 'sesionNoExiste') {
 				unset ( $_REQUEST );
 				$this->redireccionar ( 'indice', 'pagina=index&mostrarMensaje=sesionExpirada' );
