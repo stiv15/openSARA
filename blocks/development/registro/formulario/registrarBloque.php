@@ -40,6 +40,7 @@ class RegistradorBloque {
          * $atributos= array_merge($atributos,$atributosGlobales);
          */
         $atributosGlobales ['tiempo'] = time();
+        $_REQUEST ['tiempo'] = time();
         $_REQUEST ['campoSeguro'] = 'true';
         
         // -------------------------------------------------------------------------------------------------
