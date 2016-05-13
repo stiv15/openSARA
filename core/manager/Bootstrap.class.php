@@ -165,6 +165,7 @@ class Bootstrap {
 		 * Verificar para Validar si es un Web services
 		 * */
 		
+		
 		if ($pagina != 'webservices') {
 			$this->autenticador->setPagina ( $pagina );
 		} else {
