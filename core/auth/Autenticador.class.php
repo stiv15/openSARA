@@ -51,35 +51,49 @@ class Autenticador {
 		return self::$instancia;
 	}
 	function iniciarAutenticacion() {
-		var_dump ( $_REQUEST );
-		$respuesta = '';
+		
 		if (isset ( $this->pagina ["nombre"] )) {
 			$resultado = $this->verificarExistenciaPagina ();
-		} else if (isset ( $this->webService ["nombre"] )) {
-			$resultado = $this->verificarExistenciaWebServices ();
-		}
-		
-		if ($resultado) {
-			$resultado = $this->cargarSesionUsuario ();
 			
 			if ($resultado) {
-				// Verificar que el usuario está autorizado para el nivel de acceso de la página
 				
-				$resultado = $this->verificarAutorizacionUsuario ();
+				$resultado = $this->cargarSesionUsuario ();
+				
 				if ($resultado) {
-					$respuesta = true;
+					// Verificar que el usuario está autorizado para el nivel de acceso de la página
+					
+					$resultado = $this->verificarAutorizacionUsuario ();
+					if ($resultado) {
+						$respuesta = true;
+					} else {
+						$this->tipoError = "usuarioNoAutorizado";
+						$respuesta = false;
+					}
 				} else {
-					$this->tipoError = "usuarioNoAutorizado";
+					$this->tipoError = "sesionNoExiste";
 					$respuesta = false;
 				}
 			} else {
-				$this->tipoError = "sesionNoExiste";
+				
+				$this->tipoError = "paginaNoExiste";
 				$respuesta = false;
 			}
-		} else {
+		} else if (isset ( $this->webService ["nombre"] )) {
 			
-			$this->tipoError = "paginaNoExiste";
-			$respuesta = false;
+			/**
+			 * Verificacion Existencia Web Services
+			 */
+			
+			$resultado = $this->verificarExistenciaWebServices ();
+			if ($resultado) {
+				
+				$resultado = $this->cargarSesionUsuario ();
+				$respuesta = true;
+			} else {
+				
+				$this->tipoError = "webServiceNoExiste";
+				$respuesta = false;
+			}
 		}
 		
 		return $respuesta;
@@ -118,14 +132,15 @@ class Autenticador {
 		
 		if ($clausulaSQL) {
 			$registro = $this->configurador->conexionDB->ejecutarAcceso ( $clausulaSQL, "busqueda" );
+			
 			$totalRegistros = $this->configurador->conexionDB->getConteo ();
 			
 			if ($totalRegistros > 0) {
-				$this->pagina [self::NIVEL] = $registro [0] [0];
+				
 				return true;
 			}
 		}
-		$this->tipoError = "paginaNoExiste";
+		$this->tipoError = "webServiceNoExiste";
 		return false;
 	}
 	function getError() {
