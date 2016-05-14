@@ -50,7 +50,6 @@ class Pagina {
     function inicializarPagina($laPagina) {
         
         $this->recursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( "configuracion" );
-        
         if ($this->recursoDB) {            
 
             
@@ -65,12 +64,13 @@ class Pagina {
              *    esa funcionalidad podría acarrear comportamientos no especificados.
              */
             
+            
             if(isset ( $_REQUEST ['actionBloque'] )){
                 //(c)
                 $resultado=$this->mostrarPagina();
             }elseif(isset ( $_REQUEST ['action'] )){
                 //(b)
-                $resultado=$this->procesarPagina();
+            	$resultado=$this->procesarPagina();
             }else{
                 //(a)
                 $resultado= $this->mostrarPagina ();
