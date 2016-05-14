@@ -1,11 +1,11 @@
 --
--- Base de datos: `saraEstructura`
+-- Base de datos: "saraEstructura"
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>bloque`
+-- Estructura de tabla para la tabla "<nombre>bloque"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>bloque" (
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>bloque" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>bloque_pagina`
+-- Estructura de tabla para la tabla "<nombre>bloque_pagina"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>bloque_pagina" (
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>bloque_pagina" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>configuracion`
+-- Estructura de tabla para la tabla "<nombre>configuracion"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>configuracion" (
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>configuracion" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>dbms`
+-- Estructura de tabla para la tabla "<nombre>dbms"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>dbms" (
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>dbms" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>estilo`
+-- Estructura de tabla para la tabla "<nombre>estilo"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>estilo" (
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>estilo" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>logger`
+-- Estructura de tabla para la tabla "<nombre>logger"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>logger" (
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>logger" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>pagina`
+-- Estructura de tabla para la tabla "<nombre>pagina"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>pagina" (
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>pagina" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>registrado`
+-- Estructura de tabla para la tabla "<nombre>registrado"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>usuario" (
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>usuario" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>usuario_subsistema`
+-- Estructura de tabla para la tabla "<nombre>usuario_subsistema"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>registrado_subsistema" (
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>registrado_subsistema" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>subsistema`
+-- Estructura de tabla para la tabla "<nombre>subsistema"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>subsistema" (
@@ -157,7 +157,21 @@ CREATE TABLE IF NOT EXISTS "<nombre>subsistema" (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `<nombre>tempFormulario`
+-- Estructura de tabla para la tabla "<nombre>web_services"
+--
+
+CREATE TABLE IF NOT EXISTS "<nombre>web_services" (
+  "id_webservices" int(5) NOT NULL,
+  "nombre" char(50) COLLATE utf8_unicode_ci NOT NULL,
+  "descripcion" char(255) COLLATE utf8_unicode_ci default NULL,
+  "grupo" char(200) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY ("id_webservices"),
+  KEY "id_webservices" ("id_webservices")
+) ;
+-------------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla "<nombre>tempFormulario"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>tempFormulario" (
@@ -171,8 +185,11 @@ CREATE TABLE IF NOT EXISTS "<nombre>tempFormulario" (
 
 -- --------------------------------------------------------
 
+
+-- --------------------------------------------------------
+
 --
--- Estructura de tabla para la tabla `<nombre>valor_sesion`
+-- Estructura de tabla para la tabla "<nombre>valor_sesion"
 --
 
 CREATE TABLE IF NOT EXISTS "<nombre>valor_sesion" (
