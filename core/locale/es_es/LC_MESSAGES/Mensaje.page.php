@@ -1,6 +1,6 @@
 <?php
 $this->idioma ["paginaNoExiste"] = "<h2>La página que está buscando no existe</h2><p>Esto se considera un error fatal.</p><p>Por favor contacte al administrador del sistema. Posiblemente sea necesario registrarla.</p>";
-$this->idioma ["webServiceNoExiste"] = "<h2>El Web Services que está buscando no exite</h2><p>Esto se considera un error fatal.</p><p>Por favor contacte al administrador del sistema. Posiblemente sea necesario registrar el Web Services.</p>";
+$this->idioma ["webServiceNoExiste"] = "<h2>El Web Services que está buscando no existe</h2><p>Esto se considera un error fatal.</p><p>Por favor contacte al administrador del sistema. Posiblemente sea necesario registrar el Web Services.</p>";
 $this->idioma ["usuarioNoAutorizado"] = "<h2>Insuficientes Privilegios</h2><p>Imposible realizar la acción solicitada.</p><p>Por favor contacte al administrador del sistema.</p>";
 $this->idioma ["paginaSinBloques"] = "<h2>Página no válida</h2><p>La página solicitada no tiene bloques asociados.</p><p>Por favor contacte al administrador del sistema.</p>";
 $this->idioma ["errorAcceso"] = "<h3>Imposible conectarse a la base de datos.</h3><p>Esto se considera un error no manejable y el aplicativo debe detenerse.</p>";
