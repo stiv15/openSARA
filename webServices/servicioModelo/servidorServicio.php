@@ -1,20 +1,50 @@
 <?php
 
 namespace servicioBeneficiario;
-include ('Funcion.class.php');
 
-$directorioWSDL = "http://localhost/hipnos/webServices/directorioWDSL/archivoWSDL.wsdl";
-ini_set ( "soap.wsdl_cache_enabled", "0" );
+// Evitar un acceso directo a este archivo
+if (! isset ( $GLOBALS ["autorizado"] )) {
+	include ("../index.php");
+	exit ();
+}
 
-$parametros = array (
-		'uri' => 'http://localhost/hipnos/webServices/servicioBeneficiario/',
-		'soap_version' => SOAP_1_2 
-);
+include_once ("core/manager/Configurador.class.php");
 
-$objetoServicio = new \SoapServer($directorioWSDL,$parametros);
+include_once ('Funcion.class.php');
+class servicioWeb {
+	var $miFuncion;
+	var $miConfigurador;
+	function __construct() {
+		$this->miConfigurador = \Configurador::singleton ();
+		$this->miFuncion = new Funcion ();
+	}
+	public function servidorSOAP() {
+		$rutaURL = $this->miConfigurador->getVariableConfiguracion ( "host" ) . $this->miConfigurador->getVariableConfiguracion ( "site" );
+		$rutaURL .= "/webServices";
+		
+		$directorioWDLS = $rutaURL . "/directorioWDSL/";
+		$nombreArchivoWSDL = "archivoWSDL.wsdl";
+		
+		$urlWSDL = $directorioWDLS . $nombreArchivoWSDL;
+		
+		$uri = $rutaURL . "/" . $_REQUEST ['nombreServicio'] . "/";
+		
+		$parametroSOAP = array (
+				'uri' => $uri,
+				'soap_version' => SOAP_1_2 
+		);
+		
+		ini_set ( "soap.wsdl_cache_enabled", "0" );
+		
+		$objetoServidorSOAP= new \SoapServer($urlWSDL,$parametroSOAP);
+		$objetoServidorSOAP->setClass("Beneficiario");
+		$objetoServidorSOAP->handle();
+		
+	}
+}
 
+$Objeto = new servicioWeb ();
 
-$objetoServicio->setClass ( "Beneficiario" );
-$objetoServicio->handle ();
+$Objeto->servidorSOAP ();
 
 ?>
