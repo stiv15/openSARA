@@ -22,7 +22,7 @@ class servicioWeb {
 		$rutaURL = $this->miConfigurador->getVariableConfiguracion ( "host" ) . $this->miConfigurador->getVariableConfiguracion ( "site" );
 		$rutaURL .= "/webServices";
 		
-		$directorioWDLS = $rutaURL . "/directorioWDSL/";
+		$directorioWDLS = $rutaURL . "/directorioWSDL/";
 		$nombreArchivoWSDL = "archivoWSDL.wsdl";
 		
 		$urlWSDL = $directorioWDLS . $nombreArchivoWSDL;
