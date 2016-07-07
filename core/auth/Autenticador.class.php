@@ -140,6 +140,13 @@ class Autenticador {
 			
 			if ($totalRegistros > 0) {
 				
+				/**
+				 * Cargar el grupo del Servicio Web
+				 */
+				if (is_null ( $registro [0] ['grupo'] ) == false) {
+					$_REQUEST ['grupo'] = trim ( $registro [0] ['grupo'] );
+				}
+				
 				return true;
 			}
 		}
