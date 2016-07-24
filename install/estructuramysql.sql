@@ -196,6 +196,19 @@ CREATE TABLE IF NOT EXISTS `<nombre>tempFormulario` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `<nombre>web_services`
+--
+
+CREATE TABLE IF NOT EXISTS `<nombre>web_services` (
+  `id_webservices` int(7) NOT NULL auto_increment,
+  `nombre` char(50) collate utf8_unicode_ci NOT NULL,
+  `descripcion` char(255) collate utf8_unicode_ci default NULL,
+  `grupo` char(200) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id_webservices`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `<nombre>valor_sesion`
