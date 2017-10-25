@@ -1,9 +1,9 @@
-  _________   _____ __________    _____   
- /   _____/  /  _  \\______   \  /  _  \  
- \_____  \  /  /_\  \|       _/ /  /_\  \ 
- /        \/    |    \    |   \/    |    \
-/_______  /\____|__  /____|_  /\____|__  /
-        \/         \/       \/         \/ 
+                              _________   _____ __________    _____   
+  ____ ______   ____   ____  /   _____/  /  _  \\______   \  /  _  \  
+ /  _ \\____ \_/ __ \ /    \ \_____  \  /  /_\  \|       _/ /  /_\  \ 
+(  <_> )  |_> >  ___/|   |  \/        \/    |    \    |   \/    |    \
+ \____/|   __/ \___  >___|  /_______  /\____|__  /____|_  /\____|__  /
+       |__|        \/     \/        \/         \/       \/         \/ 
 
 		    	Framework
 	------------------------------
@@ -13,7 +13,7 @@ UNIVERSIDAD DISTRITAL Francisco José de Caldas
 Descripción
 -----------------
 
-SARA, Sistema para la Articulación Rápida de Aplicaciones
+openSARA, Sistema para la Articulación Rápida de Aplicaciones
 (System for Addressing the Rapid development of Applications),
 es un marco de trabajo para el desarrollo de aplicaciones
 orientadas a la web.
@@ -23,7 +23,7 @@ dividida en capas.
 
 Instalación
 -----------------
-SARA requiere para su funcionamiento un servidor web, preferiblemente
+openSARA requiere para su funcionamiento un servidor web, preferiblemente
 Apache HTTP (con soporte para PHP), un motor de bases de datos - 
 soporta PostgreSQL, MySQL, Oracle.
 
@@ -34,7 +34,7 @@ dede la configuración del servidor web.
 
 Derechos de Autor
 ------------------
-SARA This program is free software: you can redistribute it 
+openSARA is free software: you can redistribute it 
 and/or modify it under the terms of the GNU General Public 
 License as published by the Free Software Foundation, either
 version 3 of the License, or (at your option) any later
