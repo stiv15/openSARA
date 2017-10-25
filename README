@@ -8,7 +8,7 @@
 		    	Framework
 	------------------------------
 UNIVERSIDAD DISTRITAL Francisco José de Caldas
-Oficina asesora de Sistemas 2012
+2017
 
 Descripción
 -----------------
@@ -26,16 +26,6 @@ Instalación
 SARA requiere para su funcionamiento un servidor web, preferiblemente
 Apache HTTP (con soporte para PHP), un motor de bases de datos - 
 soporta PostgreSQL, MySQL, Oracle.
-
-Historia
------------------
-SARA es una evolución del marco de desarrollo que desde el
-año 2005 se ha venido trabajando en la Universidad Distrital
-Francisco José de Caldas. Desde el año 2008, es dirigido 
-conforme a los lineamientos de la Oficina Asesora de Sistemas
-y se distribuye como software libre como muestra del compromiso
-institucional con la Política Distrital de Fomento al Software
-Libre. 
 
 Aspectos de seguridad
 -----------------------------------
