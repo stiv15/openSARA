@@ -31,7 +31,7 @@ $enlace = $this->miConfigurador->getVariableConfiguracion ( 'enlace' );
 			<p>
 				<img src="<?php echo $urlBloque.'/imagen/' ?>arrow_footer.gif"> <a
 					href="https://github.com/frameworksara/openSARA" target="_blank"
-					title="">Repositorio</a>
+					title="">Fork me on Github</a>
 			</p>
 	</div>
 </div>
