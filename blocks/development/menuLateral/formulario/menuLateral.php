@@ -1,11 +1,9 @@
 <?php
-
 $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
-
-$esteCampo='desenlace';
+$esteCampo = 'desenlace';
 $item = $esteCampo;
 $items [$item] ['nombre'] = $this->lenguaje->getCadena ( $esteCampo );
 $items [$item] ['enlace'] = true; // El li es un enlace directo, dejar false si existe submenus
@@ -15,7 +13,6 @@ $enlace = 'pagina=desenlace';
 $enlace .= '&development=true';
 $items [$item] ['urlCodificada'] = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $enlace, $directorio );
 
-
 $item = 'codificador';
 $items [$item] ['nombre'] = 'Codificador';
 $items [$item] ['enlace'] = true; // El <li> es un enlace directo
@@ -23,7 +20,6 @@ $items [$item] ['icono'] = 'ui-icon-circle-triangle-e'; // El <li> es un enlace 
 $enlace = 'pagina=codificador';
 $enlace .= '&development=true';
 $items [$item] ['urlCodificada'] = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $enlace, $directorio );
-
 
 $item = 'registro';
 $items [$item] ['nombre'] = 'Registro';
@@ -33,9 +29,26 @@ $enlace = 'pagina=registro';
 $enlace .= '&development=true';
 $items [$item] ['urlCodificada'] = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $enlace, $directorio );
 
+$item = 'gestionBloques';
+$items [$item] ['nombre'] = 'Gestión Bloques';
+$items [$item] ['enlace'] = true; // El <li> es un enlace directo
+$items [$item] ['icono'] = 'ui-icon-circle-triangle-e'; // El <li> es un enlace directo
+$enlace = 'pagina=gestionBloques';
+$enlace .= '&development=true';
+$items [$item] ['urlCodificada'] = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $enlace, $directorio );
+
+$item = 'gestionConexiones';
+$items [$item] ['nombre'] = 'Gestión Conexiones';
+$items [$item] ['enlace'] = true; // El <li> es un enlace directo
+$items [$item] ['icono'] = 'ui-icon-circle-triangle-e'; // El <li> es un enlace directo
+$enlace = 'pagina=gestionConexiones';
+$enlace .= '&development=true';
+$items [$item] ['urlCodificada'] = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $enlace, $directorio );
+
+
+$items [$item] ['enlace'] = true; // El <li> es un enlace directo
 $item = 'plugin';
 $items [$item] ['nombre'] = 'Agregar Plugin';
-$items [$item] ['enlace'] = true; // El <li> es un enlace directo
 $items [$item] ['icono'] = 'ui-icon-circle-triangle-e'; // El <li> es un enlace directo
 $enlace = 'pagina=plugin';
 $enlace .= '&development=true';
@@ -48,7 +61,6 @@ $items [$item] ['icono'] = 'ui-icon-circle-triangle-e'; // El <li> es un enlace 
 $enlace = 'pagina=constructor';
 $enlace .= '&development=true';
 $items [$item] ['urlCodificada'] = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $enlace, $directorio );
-
 
 $item = 'cruder';
 $items [$item] ['nombre'] = 'CRUDer';

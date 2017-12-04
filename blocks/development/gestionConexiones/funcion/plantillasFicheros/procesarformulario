@@ -1,8 +1,5 @@
 <?php
-
-namespace bloquesModelo\bloqueModelo1\funcion;
-
-
+namespace "..\entidad ";
 include_once('Redireccionador.php');
 
 class FormProcessor {
