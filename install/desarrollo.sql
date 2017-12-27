@@ -8,6 +8,8 @@ INSERT INTO <nombre>pagina (id_pagina, nombre, descripcion, modulo, nivel, param
 INSERT INTO <nombre>pagina (id_pagina, nombre, descripcion, modulo, nivel, parametro) VALUES (-7, 'plugin', 'Agregar plugin preconfigurados.', 'development', 0 ,'jquery=true&jquery-ui=true&jquery-validation=true' );
 INSERT INTO <nombre>pagina (id_pagina, nombre, descripcion, modulo, nivel, parametro) VALUES (-8, 'saraFormCreator', 'Módulo SARA form creator.', 'development', 0 ,'jquery=true&jquery-ui=true&jquery-validation=true' );
 INSERT INTO <nombre>pagina (id_pagina, nombre, descripcion, modulo, nivel, parametro) VALUES (-9, 'formatearSQL', 'Módulo Formatear/Desformatear SQL.', 'development', 0 ,'jquery=true&jquery-ui=true&jquery-validation=true' );
+INSERT INTO <nombre>pagina (id_pagina, nombre, descripcion, modulo, nivel, parametro) VALUES (-10, 'gestionBloques', 'Módulo de gestión de bloques (CRUD)', 'development', 0 ,'jquery=true&jquery-ui=true&jquery-validation=true' );
+INSERT INTO <nombre>pagina (id_pagina, nombre, descripcion, modulo, nivel, parametro) VALUES (-11, 'gestionConexiones', 'Módulo de gestión de conexiones bases de datos (CRUD)', 'development', 0 ,'jquery=true&jquery-ui=true&jquery-validation=true' );
 -- Bloques
 INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-1,'menuLateral', 'Menú lateral módulo de desarrollo.', 'development');
 INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-2,'pie', 'Pie de página módulo de desarrollo.', 'development');
@@ -21,6 +23,8 @@ INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-9,'c
 INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-10,'plugin', 'Módulo para agregar plugin preconfigurados.', 'development');
 INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-11,'saraFormCreator', 'Módulo para crear formulario con la recomendación de bloques de SARA.', 'development');
 INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-12,'formatearSQL', 'Módulo para formatear cadenas SQL para el archivo SQL.class.php recomendado en SARA.', 'development');
+INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-13,'gestionBloques', 'Módulo para gestionar(CRUD) bloques de desarrollo recomendado en SARA.', 'development');
+INSERT INTO <nombre>bloque (id_bloque, nombre, descripcion, grupo) VALUES (-14,'gestionConexiones', 'Módulo para gestionar las conexiones de bases de datos en SARA', 'development');
 
 -- Estructura
 
@@ -70,6 +74,25 @@ INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALU
 INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-9, -3, 'A', 1 );
 INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-9, -12, 'C', 1 );
 --End formatearSQL
+--Begin Gestion Bloques
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-10, -1, 'B', 1 );
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-10, -2, 'E', 1 );
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-10, -3, 'A', 1 );
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-10, -13, 'C', 1 );
+--End Gestion Bloques
+--Begin Gestion Conexiones
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-11, -1, 'B', 1 );
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-11, -2, 'E', 1 );
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-11, -3, 'A', 1 );
+INSERT INTO <nombre>bloque_pagina (id_pagina, id_bloque, seccion, posicion) VALUES (-11, -14, 'C', 1 );
+--End Gestion Conexiones
+
+
+
+
+
+
+
 
 
 
