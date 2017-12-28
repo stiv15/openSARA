@@ -23,7 +23,14 @@ class ConsultarBloques {
 		
 		$this->resultadoItems = $this->conexion->ejecutarAcceso ( $cadenaSql, 'busqueda' );
 
+	
+		/**
+		 * Clasifica los bloques registrados y los no registrados
+		 */
+
 		$this->ajustarItems();
+
+
 		
 		$tabla = new \stdClass ();
 		
@@ -89,6 +96,12 @@ class ConsultarBloques {
 	}
 
 	function ajustarItems(){
+
+		/**
+		 * Clasifica los bloques registrados y los no registrados
+		 */
+
+
 		$this->consultarBloquesDirectorio($this->directorioInstalacion);
 
 		if($this->resultadoItems){
@@ -114,63 +127,87 @@ class ConsultarBloques {
 
 	function consultarBloquesDirectorio($directorio) {
 		
+		/**
+		 * Lista los bloques existentes en el blocks/
+		 */
+
+
 		$directorios = $this->escanearDirectorio($directorio);
 
-		foreach ($directorios as $valor) {
-			
-			if (file_exists($directorio."/".$valor."/bloque.php")) {
+		if($directorios){
 
-				$nombre_bloque=$valor;
+			foreach ($directorios as $valor) {
+				
+				if (file_exists($directorio."/".$valor."/bloque.php")) {
 
-				$arreglo = array(
-					"id_bloque" => "9999",
-					"nombre" => $valor,
-					"descripcion" => "",
-					"grupo" => ($directorio!='blocks')? str_replace("blocks/","",$directorio):"",
-					 );
+					$nombre_bloque=$valor;
 
-
-
-				 $arreglo["registro"] = "Bloque no registrado.<br>¿Desea " .$this->crearBotonRegistroBloque($arreglo)." ?";
-
-				 $this->arregloBloque[] = $arreglo;
+					$arreglo = array(
+						"id_bloque" => "9999",
+						"nombre" => $valor,
+						"descripcion" => "",
+						"grupo" => ($directorio!='blocks')? str_replace("blocks/","",$directorio):"",
+						 );
 
 
 
-			}else{
+					 $arreglo["registro"] = "Bloque no registrado.<br>¿Desea " .$this->crearBotonRegistroBloque($arreglo)." ?";
 
-				$this->consultarBloquesDirectorio($directorio."/".$valor);
+					 $this->arregloBloque[] = $arreglo;
+
+
+
+				}else{
+
+					$this->consultarBloquesDirectorio($directorio."/".$valor);
+				}
 			}
 		}
 		
 	}
 
 	function escanearDirectorio($dir=''){
-		
-		$var = scandir($dir);
 
+		/**
+		 * Escanear los directorios en blocks/
+		 */
 
-		foreach ($var as $key => $value) {
-			switch ($value) {
-				case '.':
-					unset($var[$key]);
-					break;
-				case '..':
-					unset($var[$key]);
-					break;
-				case 'bloquesModelo':
-					unset($var[$key]);
-					break;
-				case 'development':
-					unset($var[$key]);
-					break;
+		if (is_dir($dir)) {
+
+			$var = scandir($dir);
+			foreach ($var as $key => $value) {
+				switch ($value) {
+					case '.':
+						unset($var[$key]);
+						break;
+					case '..':
+						unset($var[$key]);
+						break;
+					case 'bloquesModelo':
+						unset($var[$key]);
+						break;
+					case 'development':
+						unset($var[$key]);
+						break;
+				}
 			}
+			
+		} else {
+			$var= false;
 		}
 		
-		return $var;
+		
+		return $var; 
+
+		
 	}
 
 	function crearBotonRegistroBloque($arreglo){
+
+
+		/**
+		 * Crear un boton para registrar los bloques no registrados
+		 */
 
 		$esteBloque = $this->miConfigurador->configuracion['esteBloque'];
 		// URL base

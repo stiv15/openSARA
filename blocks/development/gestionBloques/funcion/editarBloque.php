@@ -19,37 +19,61 @@ class EditarBloques {
 	}
 	function procesarEditarBloque() {
 		
+
+		/**
+		 * Limpiar Variables de espación y caracteres no deseados en la creacion de bloques
+		 */
+		$this->limpiarVariables ();
+
 		/**
 		 * Consultar Información Actual Bloque
 		 */
 		$this->consultarInformacionActualBloque ();
-		
-		/**
-		 * Edición de Directorios
-		 */
-		$this->edicionDirectorios ();
-		
-		/**
-		 * Mover Bloque a Nueva Ruta Grupo
-		 */
-		$this->moverBloque ();
-		
-		/**
-		 * Renombrar Bloque a Nueva Ruta Grupo
-		 */
-		$this->renombrarBloque ();
-		
-		/**
-		 * Cambiar Namespace Bloque
-		 */
-		$this->cambiarNamespace ();
+
+		if($_REQUEST['nombre']!=$this->infoBloqueActual['nombre'] || $_REQUEST['grupo']!= $this->infoBloqueActual['grupo']){
+
+			/**
+			 * Edición de Directorios
+			 */
+			$this->edicionDirectorios ();
+			
+			/**
+			 * Mover Bloque a Nueva Ruta Grupo
+			 */
+			$this->moverBloque ();
+			
+			/**
+			 * Renombrar Bloque a Nueva Ruta Grupo
+			 */
+			$this->renombrarBloque ();
+			
+			/**
+			 * Cambiar Namespace Bloque
+			 */
+			$this->cambiarNamespace ();
+
+		}else{
+
+			$this->autorizacionActualizar=true;
+
+		}
 		
 		/**
 		 * Actualizar Información Bloque en la DB
 		 */
+
 		$this->procesarEdicionBloqueSql ();
 		
 		return true;
+	}
+	function limpiarVariables(){
+
+		$_REQUEST['nombre'] = str_replace(array('\\'," "),"",$_REQUEST['nombre']);			
+
+		$_REQUEST['descripcion'] = str_replace(array('\\',"_"),"",$_REQUEST['descripcion']);
+
+		$_REQUEST['grupo'] = str_replace(array('\\'," "),"",$_REQUEST['grupo']);
+
 	}
 	function procesarEdicionBloqueSql() {
 		$this->conexion = $this->miConfigurador->fabricaConexiones->getRecursoDB ( 'estructura' );
@@ -58,7 +82,6 @@ class EditarBloques {
 		 */
 		
 		if ($this->autorizacionActualizar) {
-			
 			$cadenaSql = $this->miSql->getCadenaSql ( 'actualizarInformacionBloque' );
 			$actualizacionBloque = $this->conexion->ejecutarAcceso ( $cadenaSql, 'acceso' );
 		}
@@ -77,6 +100,7 @@ class EditarBloques {
 		$this->autorizacionActualizar = true;
 	}
 	function reescribirNamespace($archivo, $extensionNamespace = '') {
+
 		$extensionNamespace = str_replace ( ' ', '', $extensionNamespace );
 		
 		$contenidoArchivo = file_get_contents ( $archivo );
@@ -98,7 +122,7 @@ class EditarBloques {
 		 * Comparar Nombre Bloque
 		 */
 		$infoActual = $this->infoBloqueActual;
-		
+
 		if ($this->infoBloqueActual ['nombre'] != $_REQUEST ['nombre'] && $this->nuevaRutaGrupo) {
 			
 			$this->rutaNuevaBloque = $this->nuevaRutaGrupo . "/" . trim ( $_REQUEST ['nombre'] );
@@ -113,6 +137,7 @@ class EditarBloques {
 			$this->namespace = str_replace ( " ", "", $this->namespace );
 			rename ( $NombreActualBloque, $this->rutaNuevaBloque );
 		} elseif ($this->infoBloqueActual ['nombre'] != $_REQUEST ['nombre'] && $this->nuevaRutaGrupo == false && $_REQUEST ['grupo'] == '') {
+			
 			$NombreActualBloque = $this->directorioInstalacion . trim ( $this->infoBloqueActual ['nombre'] );
 			$this->rutaNuevaBloque = $this->directorioInstalacion . trim ( $_REQUEST ['nombre'] );
 			$this->namespace = str_replace ( "/", " \ ", trim ( $_REQUEST ['nombre'] ) );
@@ -125,6 +150,7 @@ class EditarBloques {
 			$this->namespace = str_replace ( " ", "", $this->namespace );
 			rename ( $this->nuevaRutaGrupo . "/" . trim ( $this->infoBloqueActual ['nombre'] ), $this->rutaNuevaBloque );
 		}
+
 	}
 	function moverBloque() {
 		/**
@@ -247,7 +273,7 @@ class EditarBloques {
 		$cadenaSql = $this->miSql->getCadenaSql ( 'informacionBloque' );
 		$informacionActual = $this->conexion->ejecutarAcceso ( $cadenaSql, 'busqueda' );
 		$informacionActual = $informacionActual [0];
-		
+
 		foreach ( $informacionActual as $key => $valor )
 			$this->infoBloqueActual [$key] = trim ( $valor );
 	}
