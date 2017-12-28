@@ -30,7 +30,7 @@ class Sql extends \Sql {
 			 */
 			case 'consultarBloques' :
 				
-				$cadenaSql = " SELECT id_bloque, nombre, descripcion, grupo ";
+				$cadenaSql = " SELECT id_bloque, nombre, descripcion, grupo, 'true' as registro ";
 				$cadenaSql .= " FROM " . $prefijo . "bloque ";
 				$cadenaSql .= " WHERE id_bloque > 0 ";
 				$cadenaSql .= " ORDER BY  id_bloque " . $_REQUEST ['sord'] . " ;";

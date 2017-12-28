@@ -6,6 +6,7 @@ class ConsultarBloques {
 	var $miConfigurador;
 	var $miSql;
 	var $conexion;
+	var $directorioInstalacion = "blocks/";
 	function __construct($sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
@@ -21,6 +22,9 @@ class ConsultarBloques {
 		$cadenaSql = $this->miSql->getCadenaSql ( 'consultarBloques' );
 		
 		$resultadoItems = $this->conexion->ejecutarAcceso ( $cadenaSql, 'busqueda' );
+		var_dump($resultadoItems);
+
+		$this->consultarBloquesDirectorio($this->directorioInstalacion);exit;
 		
 		$tabla = new \stdClass ();
 		
@@ -82,6 +86,46 @@ class ConsultarBloques {
 		}
 		
 		echo $tabla;
+	}
+	function consultarBloquesDirectorio($directorio) {
+		
+		$directorios = $this->escanearDirectorio($directorio);
+
+		var_dump($directorios);
+
+
+		foreach ($directorios as $valor) {
+			
+			if (file_exists($directorio.$valor."/bloque.php")) {
+
+				$nombre_bloque=$valor;
+
+				$arregloBloque[] = array(
+					"id_bloque" => 9999 ,
+					"nombre" => $valor,
+					"descripcion" => "",
+					"grupo" => ($directorio!='blocks/')? $directorio:""
+					 );
+
+
+					
+			}
+			
+
+		}
+
+		var_dump($arregloBloque);
+
+		
+	}
+
+	function escanearDirectorio($dir=''){
+		
+		$var = scandir($dir);
+		unset($var[0]);
+		unset($var[1]);
+
+		return $var;
 	}
 }
 
