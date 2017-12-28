@@ -6,7 +6,7 @@ class ConsultarBloques {
 	var $miConfigurador;
 	var $miSql;
 	var $conexion;
-	var $directorioInstalacion = "blocks/";
+	var $directorioInstalacion = "blocks";
 	function __construct($sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
@@ -21,10 +21,9 @@ class ConsultarBloques {
 		
 		$cadenaSql = $this->miSql->getCadenaSql ( 'consultarBloques' );
 		
-		$resultadoItems = $this->conexion->ejecutarAcceso ( $cadenaSql, 'busqueda' );
-		var_dump($resultadoItems);
+		$this->resultadoItems = $this->conexion->ejecutarAcceso ( $cadenaSql, 'busqueda' );
 
-		$this->consultarBloquesDirectorio($this->directorioInstalacion);exit;
+		$this->ajustarItems();
 		
 		$tabla = new \stdClass ();
 		
@@ -39,7 +38,7 @@ class ConsultarBloques {
 		if (! $sidx)
 			$sidx = 1;
 		
-		$filas = count ( $resultadoItems );
+		$filas = count ( $this->resultadoItems );
 		
 		if ($filas > 0 && $limit > 0) {
 			$total_pages = ceil ( $filas / $limit );
@@ -51,20 +50,21 @@ class ConsultarBloques {
 			$page = $total_pages;
 		}
 		$start = $limit * $page - $limit;
-		if ($resultadoItems != false) {
+		if ( $this->resultadoItems != false) {
 			$tabla->page = $page;
 			$tabla->total = $total_pages;
 			$tabla->records = $filas;
 			
 			$i = 0;
 			$j = 1;
-			foreach ( $resultadoItems as $row ) {
+			foreach ( $this->resultadoItems as $row ) {
 				$tabla->rows [$i] ['id'] = $row ['id_bloque'];
 				$tabla->rows [$i] ['cell'] = array (
 						$row ['id_bloque'],
 						trim ( $row ['nombre'] ),
 						trim ( $row ['descripcion'] ),
-						trim ( $row ['grupo'] ) 
+						trim ( $row ['grupo'] ), 
+						trim ( $row ['registro'] ) 
 				);
 				$i ++;
 			}
@@ -87,45 +87,119 @@ class ConsultarBloques {
 		
 		echo $tabla;
 	}
+
+	function ajustarItems(){
+		$this->consultarBloquesDirectorio($this->directorioInstalacion);
+
+		if($this->resultadoItems){
+			foreach ($this->resultadoItems as $key => $value) {
+				foreach ($this->arregloBloque as $llave => $valor ) {
+					
+					if ($value['nombre'] == $valor['nombre']) {
+						unset($this->arregloBloque[$llave]);
+					}
+
+				}
+			}
+
+			$this->resultadoItems = array_merge($this->resultadoItems,$this->arregloBloque);
+
+		}else{
+
+			$this->resultadoItems = $this->arregloBloque;
+
+		}
+		
+	}
+
 	function consultarBloquesDirectorio($directorio) {
 		
 		$directorios = $this->escanearDirectorio($directorio);
 
-		var_dump($directorios);
-
-
 		foreach ($directorios as $valor) {
 			
-			if (file_exists($directorio.$valor."/bloque.php")) {
+			if (file_exists($directorio."/".$valor."/bloque.php")) {
 
 				$nombre_bloque=$valor;
 
-				$arregloBloque[] = array(
-					"id_bloque" => 9999 ,
+				$arreglo = array(
+					"id_bloque" => "9999",
 					"nombre" => $valor,
 					"descripcion" => "",
-					"grupo" => ($directorio!='blocks/')? $directorio:""
+					"grupo" => ($directorio!='blocks')? str_replace("blocks/","",$directorio):"",
 					 );
 
 
-					
+
+				 $arreglo["registro"] = "Bloque no registrado.<br>¿Desea " .$this->crearBotonRegistroBloque($arreglo)." ?";
+
+				 $this->arregloBloque[] = $arreglo;
+
+
+
+			}else{
+
+				$this->consultarBloquesDirectorio($directorio."/".$valor);
 			}
-			
-
 		}
-
-		var_dump($arregloBloque);
-
 		
 	}
 
 	function escanearDirectorio($dir=''){
 		
 		$var = scandir($dir);
-		unset($var[0]);
-		unset($var[1]);
 
+
+		foreach ($var as $key => $value) {
+			switch ($value) {
+				case '.':
+					unset($var[$key]);
+					break;
+				case '..':
+					unset($var[$key]);
+					break;
+				case 'bloquesModelo':
+					unset($var[$key]);
+					break;
+				case 'development':
+					unset($var[$key]);
+					break;
+			}
+		}
+		
 		return $var;
+	}
+
+	function crearBotonRegistroBloque($arreglo){
+
+		$esteBloque = $this->miConfigurador->configuracion['esteBloque'];
+		// URL base
+		$url = $this->miConfigurador->getVariableConfiguracion ( "host" );
+		$url .= $this->miConfigurador->getVariableConfiguracion ( "site" );
+		$url .= "/index.php?";
+		// Variables
+		$cadenaACodificar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( "pagina" );
+		$cadenaACodificar .= "&procesarAjax=true";
+		$cadenaACodificar .= "&action=index.php";
+		$cadenaACodificar .= "&bloqueNombre=" . $esteBloque ["nombre"];
+		$cadenaACodificar .= "&bloqueGrupo=" . $esteBloque ["grupo"];
+		$cadenaACodificar .= "&funcion=registrarBloque";
+		$cadenaACodificar .= "&nombre=".$arreglo['nombre'];
+		$cadenaACodificar .= "&descripcion=".$arreglo['descripcion'];
+		$cadenaACodificar .= "&grupo=".$arreglo['grupo'];
+
+		// Codificar las variables
+		$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
+		$cadena = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificar, $enlace );
+
+		// URL definitiva
+		$urlRegistrarBloque = $url . $cadena;
+
+		$boton = "<input type='button' value='Registrar' class='ui-state-default ui-corner-all'";
+		$boton .=" onclick= 'registroBloque(\"".$urlRegistrarBloque."\")'></input>";	
+
+		return $boton;
+	
 	}
 }
 

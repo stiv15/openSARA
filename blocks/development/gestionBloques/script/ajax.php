@@ -132,6 +132,19 @@
 <script type='text/javascript'>
 
 
+function registroBloque(url) {
+
+ 		$.ajax({
+            url: url,
+            data: {
+                status:1
+            },
+            dataType : 'json'
+        });
+
+        location.reload(true);
+}
+
 $(document).ready(function() {
 
 	
@@ -162,7 +175,7 @@ $(document).ready(function() {
 	                         {
 	     						label: 'Descripción : ',
 	                             name: 'descripcion',
-	                             width: 150,
+	                             width: 100,
 	                             editable: true,
 	                             sorttype:'text', 
 	                             editrules : {required: true} 
@@ -173,6 +186,14 @@ $(document).ready(function() {
 	                             width: 40,
 	                             editable: true,
 	                             sorttype:'text',
+	                         },
+	                         {
+	     						label : 'Registrado: ',
+	                             name: 'registro',
+	                             width: 80,
+	                             editable: false,
+	                             sorttype:'text',
+	                             align: 'center'
 	                         }
 	                         ],
 	                   	sortname: 'id',

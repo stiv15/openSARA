@@ -11,6 +11,8 @@ class procesarAjax {
 		$this->ruta = $this->miConfigurador->getVariableConfiguracion ( "rutaBloque" );
 		
 		$this->sql = $sql;
+
+		$this->conexion = $this->miConfigurador->fabricaConexiones->getRecursoDB ( 'estructura' );
 		
 		switch ($_REQUEST ['funcion']) {
 			
@@ -52,6 +54,13 @@ class procesarAjax {
 			case 'eliminarPlugin' :
 				
 				include ('eliminarPlugins.php');
+				
+				break;
+
+			case 'registrarBloque':
+				
+				$cadenaSql = $this->sql->getCadenaSql ( 'insertarBloque' );
+				$resultado = $this->conexion->ejecutarAcceso ( $cadenaSql, 'acceso' );
 				
 				break;
 		}
