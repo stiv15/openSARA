@@ -30,7 +30,7 @@ class ConsultarBloques {
 
 		$this->ajustarItems();
 
-
+		
 		
 		$tabla = new \stdClass ();
 		
@@ -57,7 +57,8 @@ class ConsultarBloques {
 			$page = $total_pages;
 		}
 		$start = $limit * $page - $limit;
-		if ( $this->resultadoItems != false) {
+
+		if ( isset($this->resultadoItems) && !is_null($this->resultadoItems) && $this->resultadoItems ) {
 			$tabla->page = $page;
 			$tabla->total = $total_pages;
 			$tabla->records = $filas;
@@ -117,7 +118,7 @@ class ConsultarBloques {
 
 			$this->resultadoItems = array_merge($this->resultadoItems,$this->arregloBloque);
 
-		}else{
+		}elseif(isset($this->arregloBloque)&&!is_null($this->arregloBloque)){
 
 			$this->resultadoItems = $this->arregloBloque;
 
