@@ -19,7 +19,7 @@ class EditarBloques {
 	}
 	function procesarEditarBloque() {
 		
-
+		
 		/**
 		 * Limpiar Variables de espación y caracteres no deseados en la creacion de bloques
 		 */
@@ -259,8 +259,11 @@ class EditarBloques {
 			} else {
 				
 				$this->nuevaRutaGrupo = $this->directorioInstalacion . $_REQUEST ['grupo'];
-				mkdir ( $this->nuevaRutaGrupo, 0777, true );
-				chmod ( $this->nuevaRutaGrupo, 0777 );
+				
+				if(!file_exists($this->nuevaRutaGrupo)){
+					mkdir ( $this->nuevaRutaGrupo, 0777, true );
+					chmod ( $this->nuevaRutaGrupo, 0777 );
+				}
 			}
 		}
 	}
