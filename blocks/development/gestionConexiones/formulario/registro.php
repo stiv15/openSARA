@@ -51,10 +51,12 @@ class Registrador {
 		{
 			
 			echo $mostrarHtml = "<center>
-									<table id='tabla_gestion'>
-									</table>
-							        <div id='barra_herramientas'>
-						            </div>
+									<div style='zoom:90%'>
+										<table id='tabla_gestion'>
+										</table>
+								        <div id='barra_herramientas'>
+							            </div>
+									</div>									
 						     	</center>";
 		}
 		
