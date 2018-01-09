@@ -132,7 +132,7 @@
 <script type='text/javascript'>
 
 
-function registroBloque(url) {
+function accionBloque(url) {
 
  		$.ajax({
             url: url,

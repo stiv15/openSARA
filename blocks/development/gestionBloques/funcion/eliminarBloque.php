@@ -6,7 +6,7 @@ class EliminarBloques {
 	var $miConfigurador;
 	var $miSql;
 	var $conexion;
-	var $infoBloqueActual;
+	var $infoBloqueActual = false;
 	var $autorizacion = false;
 	var $nuevaRutaGrupo = false;
 	var $directorioInstalacion = "blocks/";
@@ -19,12 +19,38 @@ class EliminarBloques {
 	}
 	function procesarEliminarBloque() {
 		
-		/**
-		 * Consultar Información Actual Bloque
-		 */
-		$this->consultarInformacionActualBloque ();
-		
-		if ($this->infoBloqueActual) {
+
+
+		if(!isset($_REQUEST['bloqueNoRegistrado'])){ // Se verifica cuando el bloque no esta registrado en la base de datos
+
+			/**
+			 * Consultar Información Actual Bloque
+			 */
+			$this->consultarInformacionActualBloque ();
+			
+
+			if (isset($this->infoBloqueActual) && !is_null($this->infoBloqueActual) && $this->infoBloqueActual) {
+				/**
+				 * Eliminar de Bloque
+				 */
+				$this->eliminarBloque ();
+				
+				/**
+				 * Eliminar Grupo Bloque
+				 */
+				$this->eliminarGrupoBloque ();
+				
+				/**
+				 * Eliminar Información Bloque en la DB
+				 */
+				$this->procesarEliminarBloqueSql ();
+			}
+
+		}elseif (file_exists($this->directorioInstalacion.$_REQUEST['grupo']."/".$_REQUEST['nombre']) ) {
+			
+			$this->infoBloqueActual['grupo'] = $_REQUEST['grupo'];
+			$this->infoBloqueActual['nombre'] = $_REQUEST['nombre'];
+
 			/**
 			 * Eliminar de Bloque
 			 */
@@ -34,12 +60,8 @@ class EliminarBloques {
 			 * Eliminar Grupo Bloque
 			 */
 			$this->eliminarGrupoBloque ();
-			
-			/**
-			 * Eliminar Información Bloque en la DB
-			 */
-			$this->procesarEliminarBloqueSql ();
 		}
+
 		return true;
 	}
 	function procesarEliminarBloqueSql() {

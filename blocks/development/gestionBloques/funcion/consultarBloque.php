@@ -152,7 +152,7 @@ class ConsultarBloques {
 
 
 
-					 $arreglo["registro"] = "Bloque no registrado.<br>¿Desea " .$this->crearBotonRegistroBloque($arreglo)." ?";
+					 $arreglo["registro"] = "Bloque no registrado.<br>¿Desea " .$this->crearBotonesBloque($arreglo)." ?";
 
 					 $this->arregloBloque[] = $arreglo;
 
@@ -203,7 +203,7 @@ class ConsultarBloques {
 		
 	}
 
-	function crearBotonRegistroBloque($arreglo){
+	function crearBotonesBloque($arreglo){
 
 
 		/**
@@ -230,11 +230,35 @@ class ConsultarBloques {
 		$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 		$cadena = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificar, $enlace );
 
-		// URL definitiva
+		// URL Registrar
 		$urlRegistrarBloque = $url . $cadena;
 
 		$boton = "<input type='button' value='Registrar' class='ui-state-default ui-corner-all'";
-		$boton .=" onclick= 'registroBloque(\"".$urlRegistrarBloque."\")'></input>";	
+		$boton .=" onclick= 'accionBloque(\"".$urlRegistrarBloque."\")'></input>";
+
+		// Variables
+		$cadenaACodificar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( "pagina" );
+		$cadenaACodificar .= "&procesarAjax=true";
+		$cadenaACodificar .= "&action=index.php";
+		$cadenaACodificar .= "&bloqueNombre=" . $esteBloque ["nombre"];
+		$cadenaACodificar .= "&bloqueGrupo=" . $esteBloque ["grupo"];
+		$cadenaACodificar .= "&funcion=eliminarBloque";
+		$cadenaACodificar .= "&nombre=".$arreglo['nombre'];
+		$cadenaACodificar .= "&descripcion=".$arreglo['descripcion'];
+		$cadenaACodificar .= "&grupo=".$arreglo['grupo'];
+		$cadenaACodificar .= "&bloqueNoRegistrado=true";
+
+		// Codificar las variables
+		$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
+		$cadena = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificar, $enlace );
+
+		// URL Eliminar
+		$urlEliminarBloque = $url . $cadena;
+
+		$boton .= " o ";
+
+		$boton .= "<input type='button' value='Eliminar' class='ui-state-default ui-corner-all'";
+		$boton .=" onclick= 'accionBloque(\"".$urlEliminarBloque."\")'></input>";	
 
 		return $boton;
 	
