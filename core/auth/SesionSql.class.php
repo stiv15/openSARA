@@ -28,7 +28,7 @@ class SesionSql {
 				break;
 			
 			case "seleccionarWebServices" :
-				$this->cadena_sql [$indice] = "SELECT nombre,grupo  FROM " . $this->prefijoTablas . "web_services WHERE  nombre='" . $parametro . "' LIMIT 1";
+				$this->cadena_sql [$indice] = "SELECT nombre,tipo,grupo  FROM " . $this->prefijoTablas . "web_services WHERE  nombre='" . $parametro . "' LIMIT 1";
 				break;
 			
 			case "actualizarSesion" :
