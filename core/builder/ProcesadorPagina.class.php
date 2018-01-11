@@ -43,11 +43,13 @@ class ProcesadorPagina {
 		 */
 		
 		if (isset ( $_REQUEST ["nombreServicio"] )) {
+			
 			$unServicio [self::NOMBRE] = $_REQUEST ["action"];
 			$unServicio ["id_servicio"] = $_REQUEST ["nombreServicio"];
+			$tipo = $_REQUEST['tipo']."/";
 			$carpeta = (isset ( $_REQUEST ['grupo'] ) == true) ? $_REQUEST ['grupo'] . '/' : '';
 			
-			include_once ($this->raizDocumentos . self::CARPETAWEBSERVICES . $carpeta . $unServicio [self::NOMBRE] . self::ARCHIVOWEBSERVICES);
+			include_once ($this->raizDocumentos . self::CARPETAWEBSERVICES .$tipo. $carpeta . $unServicio [self::NOMBRE] . self::ARCHIVOWEBSERVICES);
 			return true;
 		}
 		
