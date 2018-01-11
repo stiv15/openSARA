@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS "<nombre>web_services" (
   "id_webservices" int(5) NOT NULL,
   "nombre" char(50) COLLATE utf8_unicode_ci NOT NULL,
   "descripcion" char(255) COLLATE utf8_unicode_ci default NULL,
+  "tipo" char(5) COLLATE utf8_unicode_ci NOT NULL,
   "grupo" char(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY ("id_webservices"),
   KEY "id_webservices" ("id_webservices")

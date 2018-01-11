@@ -216,6 +216,7 @@ CREATE TABLE <nombre>web_services
   id_webservices serial NOT NULL,
   nombre character(50) NOT NULL,
   descripcion character(255) DEFAULT NULL::bpchar,
+  tipo character(5) NOT NULL,
   grupo character(200),
   PRIMARY KEY (id_webservices)
 );
