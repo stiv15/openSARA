@@ -88,13 +88,10 @@ class Autenticador {
 				
 				$resultado = $this->cargarSesionUsuario ();
 				$respuesta = true;
-			} else {
-				
-				$this->tipoError = "webServiceNoExiste";
+			}else{
 				$respuesta = false;
 			}
 		} else {
-			
 			$this->tipoError = "webServiceNoExiste";
 			$respuesta = false;
 		}
@@ -145,14 +142,32 @@ class Autenticador {
 				 */
 				if (is_null ( $registro [0] ['grupo'] ) == false) {
 					$_REQUEST ['grupo'] = trim ( $registro [0] ['grupo'] );
+					$respuesta = true;
 				}
-				
-				return true;
+
+				/**
+				 * Cargar el tipo de Servicio Web
+				 */
+				if (trim ($registro [0] ['tipo']) == 'soap' || trim ($registro [0] ['tipo']) == 'rest') {
+					$_REQUEST ['tipo'] = trim ( $registro [0] ['tipo'] );
+					$respuesta = true;
+				}else{
+					$this->tipoError ="webServiceNoTipo";
+					$respuesta = false;
+				}
+			}else{
+				$this->tipoError = "webServiceNoExiste";
+				$respuesta = false;
 			}
+		}else{
+			$this->tipoError = "webServiceNoExiste";
+			$respuesta = false;
 		}
-		$this->tipoError = "webServiceNoExiste";
-		return false;
+
+		return $respuesta;
 	}
+
+
 	function getError() {
 		return $this->tipoError;
 	}
